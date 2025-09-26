@@ -78,18 +78,38 @@ else
     echo "Skipping Rust, already installed"
 fi
 
-# Install kubelogin
+if ! command -v zsh >/dev/null 2>&1; then
+    echo "zsh not found. Installing..."
+    brew install zsh
+    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+else
+    echo "zsh is already installed."
+fi
+
+if ! command -v tiles >/dev/null 2>&1; then
+    echo "Tiles not found. Installing via Homebrew Cask..."
+    brew install --cask tiles
+else
+    echo "Tiles is already installed."
+fi
+
 if ! command -v kubelogin >/dev/null 2>&1; then
     brew install kubelogin
 else
     echo "Skipping kubelogin, already installed"
 fi
 
-# Install Azure CLI
 if ! command -v az >/dev/null 2>&1; then
     brew install azure-cli
 else
     echo "Skipping azure-cli, already installed"
+fi
+
+if ! command -v ngrok >/dev/null 2>&1; then
+    echo "ngrok not found. Installing via Homebrew..."
+    brew install ngrok
+else
+    echo "ngrok is already installed."
 fi
 
 # GUI apps
@@ -113,4 +133,7 @@ fi
 # Manual installs
 echo "Manually fixing:"
 echo "    - outlook from App Store"
-exho "    - login to vs code and sync extensions
+echo "    - login to vs code and sync extensions"
+echo "    - login to vs rider"
+echo "    - login to apps like spotify, outlook, teams, slack"
+echo "    - "
