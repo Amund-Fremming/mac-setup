@@ -112,6 +112,13 @@ else
     echo "ngrok is already installed."
 fi
 
+if ! command -v lazygit >/dev/null 2>&1; then
+    echo "lazygit not found. Installing via Homebrew..."
+    brew install lazygit
+else
+    echo "lazygit is already installed."
+fi
+
 # GUI apps
 declare -a gui_apps=("visual-studio-code" "slack" "microsoft-teams" "brave-browser" "spotify" "obsidian" "iterm2" "rider" "signal" "postman" "parsec")
 
@@ -131,6 +138,8 @@ else
 fi
 
 # Manual installs
+echo ""
+echo ""
 echo "Manually installations"
 echo "    - outlook from App Store"
 echo "    - xcode from App Store"
@@ -148,5 +157,4 @@ echo "    - set iterm2 window transparrecy to 30"
 echo "    - set desktop shortcuts: keyboard-shortcuts-mission control"
 echo "    - set default desktops to certain apps"
 echo "    - sync brave bookmarks"
-echo "    - "
 echo ""
