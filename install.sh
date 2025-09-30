@@ -34,20 +34,6 @@ else
     echo "Skipping colima, already installed"
 fi
 
-if ! command -v docker >/dev/null 2>&1; then
-    echo "Docker CLI not found, installing via Homebrew..."
-    brew install docker
-else
-    echo "Skipping Docker CLI, already installed"
-fi
-
-if ! docker compose version >/dev/null 2>&1; then
-    echo "Docker Compose not found, installing..."
-    brew install docker-compose
-else
-    echo "Skipping Docker Compose, already installed"
-fi
-
 if ! command -v minikube >/dev/null 2>&1; then
     brew install minikube
 else
@@ -93,12 +79,6 @@ else
     echo "Tiles is already installed."
 fi
 
-if ! command -v kubelogin >/dev/null 2>&1; then
-    brew install kubelogin
-else
-    echo "Skipping kubelogin, already installed"
-fi
-
 if ! command -v az >/dev/null 2>&1; then
     brew install azure-cli
 else
@@ -130,6 +110,49 @@ for app in "${gui_apps[@]}"; do
     fi
 done
 
+if ! command -v kubelogin >/dev/null 2>&1; then
+    echo "kubelogin not found. Installing via Homebrew..."
+    brew install Azure/kubelogin/kubelogin
+else
+    echo "kubelogin is already installed."
+fi
+
+if ! command -v docker >/dev/null 2>&1; then
+    echo "Docker not found. Installing via Homebrew..."
+    brew install --cask docker
+else
+    echo "Docker is already installed."
+fi
+
+if ! command -v just >/dev/null 2>&1; then
+    echo "just not found. Installing via Homebrew..."
+    brew install just
+else
+    echo "just is already installed."
+fi
+
+if ! command -v sqlx >/dev/null 2>&1; then
+    echo "sqlx-cli not found. Installing via Homebrew..."
+    brew install sqlx-cli
+else
+    echo "sqlx-cli is already installed."
+fi
+
+if ! command -v dotnet >/dev/null 2>&1; then
+    echo ".NET Runtime not found. Installing via Homebrew..."
+    brew install dotnet-runtime
+else
+    echo ".NET Runtime is already installed."
+fi
+
+if ! command -v dotnet >/dev/null 2>&1; then
+    echo ".NET SDK not found. Installing via Homebrew..."
+    brew install --cask dotnet-sdk
+else
+    echo ".NET SDK is already installed."
+fi
+
+
 # Xcode command line tools
 if ! xcode-select -p >/dev/null 2>&1; then
     xcode-select --install
@@ -157,4 +180,7 @@ echo "    - set iterm2 window transparrecy to 30"
 echo "    - set desktop shortcuts: keyboard-shortcuts-mission control"
 echo "    - set default desktops to certain apps"
 echo "    - sync brave bookmarks"
+echo "    - turn off auto rearrange desktops: desktop & dock, mission control, toggle of spaces after use"
+echo "    - attach apps to certain desktops, and make them start on login"
+
 echo ""
