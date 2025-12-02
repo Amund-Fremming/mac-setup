@@ -110,6 +110,13 @@ for app in "${gui_apps[@]}"; do
     fi
 done
 
+if ! brew list --cask visual-studio-code-insiders >/dev/null 2>&1; then
+    echo "Visual Studio Code Insiders not found. Installing via Homebrew..."
+    brew install --cask visual-studio-code-insiders
+else
+    echo "Visual Studio Code Insiders is already installed."
+fi
+
 if ! command -v kubelogin >/dev/null 2>&1; then
     echo "kubelogin not found. Installing via Homebrew..."
     brew install Azure/kubelogin/kubelogin
@@ -166,6 +173,7 @@ echo ""
 echo "Manually installations"
 echo "    - outlook from App Store"
 echo "    - xcode from App Store"
+echo "    - keynote from App Store"
 echo ""
 echo "Logins"
 echo "    - vs code and sync extensions"
@@ -182,5 +190,3 @@ echo "    - set default desktops to certain apps"
 echo "    - sync brave bookmarks"
 echo "    - turn off auto rearrange desktops: desktop & dock, mission control, toggle of spaces after use"
 echo "    - attach apps to certain desktops, and make them start on login"
-
-echo ""
