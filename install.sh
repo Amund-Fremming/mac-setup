@@ -11,31 +11,37 @@ fi
 brew update && brew upgrade
 
 # Node
-if ! command -v dotnet >/dev/null 2>&1; then
-    brew install dotnet
+if ! command -v node >/dev/null 2>&1; then
+    brew install node
 else
-    echo "Skipping dotnet, already installed"
+    echo "Skipping node, already installed"
+fi
+
+if ! command -v nvm >/dev/null 2>&1 && [ ! -d "$HOME/.nvm" ]; then
+    brew install nvm
+else
+    echo "Skipping nvm, already installed"
+fi
+
+if ! command -v pnpm >/dev/null 2>&1; then
+    brew install pnpm
+else
+    echo "Skipping pnpm, already installed"
 fi
 
 # Dotnet
-if ! command -v dotnet >/dev/null 2>&1; then
-    brew install dotnet
-else
-    echo "Skipping dotnet, already installed"
-fi
-
-if ! command -v dotnet >/dev/null 2>&1; then
-    echo ".NET Runtime not found. Installing via Homebrew..."
-    brew install dotnet-runtime
-else
-    echo ".NET Runtime is already installed."
-fi
-
 if ! command -v dotnet >/dev/null 2>&1; then
     echo ".NET SDK not found. Installing via Homebrew..."
     brew install --cask dotnet-sdk
 else
     echo ".NET SDK is already installed."
+fi
+
+# Go
+if ! command -v go >/dev/null 2>&1; then
+    brew install go
+else
+    echo "Skipping go, already installed"
 fi
 
 # Rust
@@ -82,9 +88,48 @@ fi
 
 if ! command -v ngrok >/dev/null 2>&1; then
     echo "ngrok not found. Installing via Homebrew..."
-    brew install ngrok
+    brew install --cask ngrok
 else
     echo "ngrok is already installed."
+fi
+
+if ! command -v gh >/dev/null 2>&1; then
+    brew install gh
+else
+    echo "Skipping gh, already installed"
+fi
+
+if ! command -v jq >/dev/null 2>&1; then
+    brew install jq
+else
+    echo "Skipping jq, already installed"
+fi
+
+if ! command -v rg >/dev/null 2>&1; then
+    brew install ripgrep
+else
+    echo "Skipping ripgrep, already installed"
+fi
+
+if ! command -v auth0 >/dev/null 2>&1; then
+    echo "auth0-cli not found. Installing via Homebrew..."
+    brew install auth0/auth0-cli/auth0
+else
+    echo "auth0-cli is already installed."
+fi
+
+if ! command -v psql >/dev/null 2>&1; then
+    echo "postgresql not found. Installing via Homebrew..."
+    brew install postgresql@14
+else
+    echo "postgresql is already installed."
+fi
+
+if ! command -v claude >/dev/null 2>&1; then
+    echo "Claude Code not found. Installing via npm..."
+    npm install -g @anthropic-ai/claude-code
+else
+    echo "Claude Code is already installed."
 fi
 
 if ! xcode-select -p >/dev/null 2>&1; then
@@ -134,7 +179,7 @@ else
     echo "Visual Studio Code Insiders is already installed."
 fi
 
-declare -a gui_apps=("visual-studio-code" "slack" "microsoft-teams" "brave-browser" "spotify" "obsidian" "iterm2" "signal" "postman" "parsec" "tiles")
+declare -a gui_apps=("visual-studio-code" "slack" "microsoft-teams" "brave-browser" "firefox" "spotify" "obsidian" "iterm2" "signal" "postman" "parsec" "tiles" "steam")
 
 for app in "${gui_apps[@]}"; do
     if ! brew list --cask "$app" >/dev/null 2>&1; then
@@ -151,6 +196,8 @@ echo "Manually installations"
 echo "    - outlook from App Store"
 echo "    - xcode from App Store"
 echo "    - keynote from App Store"
+echo "    - Azure VPN Client (work) - from Microsoft, not on brew"
+echo "    - GlobalProtect (work VPN) - from company portal"
 echo ""
 echo "Logins"
 echo "    - vs code and sync extensions"
@@ -159,16 +206,36 @@ echo "    - slack"
 echo "    - teams"
 echo "    - outlook"
 echo "    - spotify"
+echo "    - steam"
+echo "    - github: gh auth login"
+echo "    - azure: az login"
+echo "    - auth0: auth0 login"
+echo "    - claude code: run 'claude' and follow the login prompt"
+echo ""
+echo "Shell setup"
+echo "    - nvm needs config in ~/.zshrc:"
+echo "        export NVM_DIR=\"\$HOME/.nvm\""
+echo "        [ -s \"/opt/homebrew/opt/nvm/nvm.sh\" ] && . \"/opt/homebrew/opt/nvm/nvm.sh\""
+echo "    - postgresql@14 is keg-only, add to PATH:"
+echo "        export PATH=\"/opt/homebrew/opt/postgresql@14/bin:\$PATH\""
+echo "    - start postgres: brew services start postgresql@14"
+echo "    - rust: source \$HOME/.cargo/env (or restart shell)"
 echo ""
 echo "Configuration"
 echo "    - set iterm2 window transparrecy to 30"
 echo "    - set desktop shortcuts: keyboard-shortcuts-mission control"
 echo "    - set default desktops to certain apps"
-echo "    - sync brave bookmarks"
 echo "    - turn off auto rearrange desktops: desktop & dock, mission control, toggle of spaces after use"
 echo "    - attach apps to certain desktops, and make them start on login"
 echo "    - remap caps lock to esc"
 echo "    - Azure VPN CLIENT for work!"
+echo ""
+echo "Brave bookmarks"
+echo "    - sign in to Brave and enable sync to pull bookmarks down"
+echo "    - if sync fails, recreate these folders manually:"
+echo "        Profile 1 (work):     ThonID/, Thon/, sketching"
+echo "        Profile 3 (personal): UI inspo/, Personal/, code stuff/"
+echo "    - sync chain code is needed from an already-synced device"
 echo ""
 echo "Pretty"
 echo "    - change app icons"
